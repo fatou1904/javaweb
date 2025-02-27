@@ -20,12 +20,73 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f0f2f5;
+            padding: 0;
+            margin: 0;
+        }
+
+        /* Styles pour la navbar */
+        .navbar {
+            background-color: var(--darkblue);
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .navbar-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar-links {
+            display: flex;
+        }
+
+        .navbar-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1.5rem;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .navbar-links a:hover {
+            color: #bbdefb;
+        }
+
+        .navbar-links a:hover::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: #bbdefb;
+            bottom: 0;
+            left: 0;
+        }
+
+        .navbar-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* Style pour le contenu principal */
+        .main-content {
             padding: 20px;
         }
 
         .container {
             max-width: 400px;
-            margin: 0 auto;
+            margin: 40px auto;
             background: white;
             padding: 2rem;
             border-radius: 10px;
@@ -123,39 +184,92 @@
         .signup-link a:hover {
             text-decoration: underline;
         }
+
+        /* Media queries pour responsive design */
+        @media (max-width: 768px) {
+            .navbar-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                background-color: var(--darkblue);
+                padding: 1rem;
+            }
+
+            .navbar-links.active {
+                display: flex;
+            }
+
+            .navbar-links a {
+                margin: 0.5rem 0;
+            }
+
+            .navbar-toggle {
+                display: block;
+            }
+
+            .navbar-container {
+                flex-wrap: wrap;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Connexion</h1>
-        
-        <!-- Affichage des messages d'erreur du serveur -->
-        <% if(request.getAttribute("errorMessage") != null) { %>
-            <div class="alert show">
-                <%= request.getAttribute("errorMessage") %>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="navbar-logo">Gesstion des Employés</a>
+            <div class="navbar-toggle" id="navbar-toggle">☰</div>
+            <div class="navbar-links" id="navbar-links">
+                <a href="formulaire.jsp">Inscription</a>
+                <a href="login.jsp">Connectez-vous</a>
             </div>
-        <% } %>
+        </div>
+    </nav>
 
-        <form id="loginForm" method="post" action="traitement.jsp" onsubmit="return validateForm()">
-            <div class="form-group">
-                <label for="login">login</label>
-                <input type="login" id="login" name="login" required>
-                <span class="error" id="loginError">Veuillez entrer un login valide</span>
-            </div>
+    <!-- Contenu principal -->
+    <div class="main-content">
+        <div class="container">
+            <h1>Connexion</h1>
             
-            <div class="form-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required>
-                <span class="password-toggle" onclick="togglePassword()">👁️</span>
-                <span class="error" id="passwordError">Le mot de passe est requis</span>
-            </div>
-            
-            <button type="submit">Se connecter</button>
-        </form>
+            <!-- Affichage des messages d'erreur du serveur -->
+            <% if(request.getAttribute("errorMessage") != null) { %>
+                <div class="alert show">
+                    <%= request.getAttribute("errorMessage") %>
+                </div>
+            <% } %>
+
+            <form id="loginForm" method="post" action="traitement.jsp" onsubmit="return validateForm()">
+                <div class="form-group">
+                    <label for="login">Login</label>
+                    <input type="login" id="login" name="login" required>
+                    <span class="error" id="loginError">Veuillez entrer un login valide</span>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" required>
+                    <span class="password-toggle" onclick="togglePassword()">👁️</span>
+                    <span class="error" id="passwordError">Le mot de passe est requis</span>
+                </div>
+                
+                <button type="submit">Se connecter</button>
+
+                <div class="signup-link">
+                    <p>Pas encore de compte? <a href="#">S'inscrire</a></p>
+                </div>
+            </form>
+        </div>
     </div>
-     
 
     <script>
+        // Toggle menu pour responsive
+        document.getElementById('navbar-toggle').addEventListener('click', function() {
+            document.getElementById('navbar-links').classList.toggle('active');
+        });
+
         function validateForm() {
             const form = document.getElementById('loginForm');
             let isValid = true;

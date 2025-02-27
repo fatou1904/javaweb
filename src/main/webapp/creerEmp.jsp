@@ -25,61 +25,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'Inscription</title>
     <style>
-     /* Styles pour la navbar */
-        .navbar {
-            background-color: var(--darkblue);
-            color: white;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .navbar-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .navbar-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-            text-decoration: none;
-        }
-
-        .navbar-links {
-            display: flex;
-        }
-
-        .navbar-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 1.5rem;
-            padding: 0.5rem 0;
-            position: relative;
-        }
-
-        .navbar-links a:hover {
-            color: #bbdefb;
-        }
-
-        .navbar-links a:hover::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background-color: #bbdefb;
-            bottom: 0;
-            left: 0;
-        }
-
-        .navbar-toggle {
-            display: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
-    
     
         /* Styles précédents conservés */
         :root {
@@ -245,16 +190,6 @@
     </style>
 </head>
 <body>
- <nav class="navbar">
-        <div class="navbar-container">
-            <a href="#" class="navbar-logo">Gesstion des Employés</a>
-            <div class="navbar-toggle" id="navbar-toggle">☰</div>
-            <div class="navbar-links" id="navbar-links">
-                <a href="formulaire.jsp">Inscription</a>
-                <a href="login.jsp">Connectez-vous</a>
-            </div>
-        </div>
-    </nav>
 
     <div class="container">
         <h1>Formulaire d'Inscription</h1>
@@ -266,7 +201,7 @@
             </div>
         <% } %>
 
-        <form id="inscriptionForm" method="post" action="verification.jsp" onsubmit="return valifonctionEmpForm()">
+        <form id="inscriptionForm" method="post" action="check.jsp" onsubmit="return valifonctionEmpForm()">
             <div class="row">
                 <div class="col">
                     <div class="form-group">
@@ -340,7 +275,7 @@
 			
             
 
-            <button type="submit">S'inscrire</button>
+            <button type="submit">Ajouter un employé</button>
         </form>
     </div>
     

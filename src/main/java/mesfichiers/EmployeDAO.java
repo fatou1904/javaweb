@@ -128,31 +128,20 @@ public class EmployeDAO {
     }
 
     public boolean delete(int matricule) {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        boolean success = false;
+        String sql = "DELETE FROM employe WHERE matricule = ?";
         
-        try {
-            conn = DatabaseConnection.getConnection();
-            // Suppression de l'employé par son matricule
-            String sql = "DELETE FROM employe WHERE matricule = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setInt(1, matricule);
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             
+            pstmt.setInt(1, matricule);
             int rowsAffected = pstmt.executeUpdate();
-            success = (rowsAffected > 0);
+            
+            return rowsAffected > 0;
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (pstmt != null) pstmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            System.out.println("Erreur lors de la suppression de l'employé avec matricule " + matricule + " : " + e.getMessage());
         }
         
-        return success;
+        return false;
     }
     
     public boolean insert(Employe employe) {

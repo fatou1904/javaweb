@@ -36,7 +36,213 @@
     <title>Détails Employé</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        /* Style similaire au code précédent */
+        /* Thème sombre noir et violet */
+:root {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --accent-primary: #8b5cf6; /* Violet principal */
+  --accent-secondary: #6d28d9; /* Violet plus foncé */
+  --accent-hover: #a78bfa; /* Violet plus clair */
+  --text-primary: #f3f4f6;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  --border-color: #2d2d2d;
+  --shadow-color: rgba(0, 0, 0, 0.5);
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+
+.details-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px var(--shadow-color);
+  overflow: hidden;
+}
+
+.details-header {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: white;
+  padding: 1.5rem 2rem;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.details-header::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1), transparent);
+}
+
+.details-header h1 {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.8rem;
+  letter-spacing: 0.5px;
+}
+
+.details-content {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.detail-item {
+  position: relative;
+  padding: 1.25rem;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
+
+.detail-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px -10px rgba(139, 92, 246, 0.3);
+  border-color: var(--accent-primary);
+}
+
+.detail-item label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--accent-primary);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.detail-item label i {
+  margin-right: 0.5rem;
+  color: var(--accent-primary);
+}
+
+.detail-item p {
+  font-size: 1.1rem;
+  margin: 0;
+  color: var(--text-primary);
+  font-weight: 400;
+  word-break: break-word;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  gap: 0.5rem;
+}
+
+.btn i {
+  font-size: 1rem;
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--accent-primary);
+  border: 1px solid var(--accent-primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--accent-primary);
+  color: white;
+  box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+}
+
+.error-message {
+  text-align: center;
+  padding: 3rem 2rem;
+}
+
+.error-message h2 {
+  color: #ef4444;
+  margin-bottom: 1rem;
+}
+
+.error-message p {
+  color: var(--text-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .details-container {
+    margin: 1rem;
+    border-radius: 8px;
+  }
+  
+  .details-content {
+    grid-template-columns: 1fr;
+    padding: 1.5rem;
+  }
+  
+  .detail-item {
+    padding: 1rem;
+  }
+}
+
+/* Animation de chargement */
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* Animation d'entrée pour les éléments */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.detail-item {
+  animation: fadeIn 0.3s ease forwards;
+  animation-delay: calc(var(--i, 0) * 0.1s);
+}
+
+/* Personnalisation de la barre de défilement */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}
     </style>
 </head>
 <body>
@@ -90,7 +296,7 @@
                     
                     <div class="detail-item">
                         <label><i class="fas fa-dollar-sign"></i> Salaire</label>
-                        <p><%= rs.getDouble("salaireBase") != 0 ? rs.getDouble("salaireBase") : "Non renseigné" %> €</p>
+                        <p><%= rs.getDouble("salaireBase") != 0 ? rs.getDouble("salaireBase") : "Non renseigné" %> fcfa</p>
                     </div>
                     
                     <div class="detail-item">
@@ -105,7 +311,7 @@
                     
                     <div class="detail-item">
                         <label><i class="fas fa-chart-line"></i> Chiffre d'Affaires</label>
-                        <p><%= rs.getDouble("chiffreAffaire") != 0 ? rs.getDouble("chiffreAffaire") : "Non renseigné" %> €</p>
+                        <p><%= rs.getDouble("chiffreAffaire") != 0 ? rs.getDouble("chiffreAffaire") : "Non renseigné" %> fcfa</p>
                     </div>
                     
                     <div class="detail-item">

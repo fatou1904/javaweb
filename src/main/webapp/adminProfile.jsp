@@ -36,24 +36,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administration - Gestion des employes</title>
+    <title>Administration - Gestion des employés</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --dark-blue: #00264d;
-            --darker-blue: #001a33;
-            --white: #ffffff;
-            --light-gray: #f5f5f5;
-            --text-dark: #333333;
-            --success: #28a745;
-            --warning: #ffc107;
-            --danger: #dc3545;
+            --bg-primary: #121212;
+            --bg-secondary: #1e1e1e;
+            --bg-tertiary: #2d2d2d;
+            --text-primary: #ffffff;
+            --text-secondary: #b3b3b3;
+            --accent: #8A2BE2;
+            --accent-dark: #6a1cb7;
+            --danger: #e53935;
+            --danger-dark: #c62828;
+            --success: #43a047;
+            --warning: #ffb300;
+            --border: #3d3d3d;
+            --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
         
-        a{
-        text-decoration: none;
+        a {
+            text-decoration: none;
+            color: var(--accent);
         }
 
         * {
@@ -65,8 +71,8 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--white);
-            color: var(--text-dark);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
         }
 
@@ -82,10 +88,10 @@
             align-items: center;
             margin-bottom: 30px;
             padding: 20px;
-            background: linear-gradient(135deg, var(--dark-blue), var(--darker-blue));
+            background: linear-gradient(135deg, var(--bg-tertiary), var(--bg-secondary));
             border-radius: 15px;
-            color: var(--white);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border);
         }
 
         .search-wrapper {
@@ -97,15 +103,14 @@
             width: 100%;
             padding: 12px 40px 12px 15px;
             border-radius: 25px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            background-color: rgba(255, 255, 255, 0.1);
-            color: var(--white);
+            border: 2px solid var(--border);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             font-size: 16px;
-            backdrop-filter: blur(5px);
         }
 
         .search-bar::placeholder {
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-secondary);
         }
 
         .search-icon {
@@ -113,7 +118,7 @@
             right: 15px;
             top: 50%;
             transform: translateY(-50%);
-            color: rgba(255, 255, 255, 0.7);
+            color: var(--text-secondary);
         }
 
         .dashboard-grid {
@@ -131,12 +136,12 @@
         }
 
         .stat-card {
-            background-color: var(--white);
+            background-color: var(--bg-secondary);
             padding: 25px;
             border-radius: 15px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -146,43 +151,64 @@
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.7);
+            background-color: var(--bg-tertiary);
         }
 
         .stat-icon {
             font-size: 2.5em;
             margin-bottom: 15px;
-            color: var(--dark-blue);
+            color: var(--accent);
         }
 
         .stat-number {
             font-size: 2.5em;
             font-weight: bold;
-            color: var(--dark-blue);
+            color: var(--accent);
             margin: 10px 0;
+        }
+
+        .stat-change {
+            color: var(--text-secondary);
         }
 
         .chart-container {
             grid-column: span 8;
-            background: white;
+            background: var(--bg-secondary);
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border);
+        }
+
+        .chart-container h2 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
         }
 
         .recent-activity {
             grid-column: span 4;
-            background: white;
+            background: var(--bg-secondary);
             padding: 20px;
             border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--card-shadow);
+            border: 1px solid var(--border);
+        }
+
+        .recent-activity h2 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
         }
 
         .activity-item {
             padding: 15px 0;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
         }
 
         .activity-icon {
@@ -196,27 +222,36 @@
             color: white;
         }
 
+        .activity-item div:last-child {
+            color: var(--text-primary);
+        }
+
+        .activity-item small {
+            color: var(--text-secondary);
+        }
+
         .employees-table {
             width: 100%;
             border-collapse: separate;
             border-spacing: 0;
-            background-color: var(--white);
+            background-color: var(--bg-secondary);
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: var(--card-shadow);
             margin-top: 20px;
+            border: 1px solid var(--border);
         }
 
         .employees-table th,
         .employees-table td {
             padding: 20px;
             text-align: left;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid var(--border);
         }
 
         .employees-table th {
-            background-color: var(--dark-blue);
-            color: var(--white);
+            background-color: var(--bg-tertiary);
+            color: var(--text-primary);
             font-weight: 500;
             text-transform: uppercase;
             font-size: 0.9em;
@@ -224,7 +259,11 @@
         }
 
         .employees-table tr:hover {
-            background-color: var(--light-gray);
+            background-color: var(--bg-tertiary);
+        }
+
+        .employees-table tbody tr:last-child td {
+            border-bottom: none;
         }
 
         .btn {
@@ -245,12 +284,12 @@
         }
 
         .btn-primary {
-            background-color: var(--dark-blue);
-            color: var(--white);
+            background-color: var(--accent);
+            color: var(--text-primary);
         }
 
         .btn-primary:hover {
-            background-color: var(--darker-blue);
+            background-color: var(--accent-dark);
             transform: translateY(-2px);
         }
 
@@ -260,7 +299,7 @@
         }
 
         .btn-danger:hover {
-            background-color: #bd2130;
+            background-color: var(--danger-dark);
             transform: translateY(-2px);
         }
 
@@ -273,7 +312,7 @@
 
         .status-pending {
             background-color: var(--warning);
-            color: var(--text-dark);
+            color: var(--bg-primary);
         }
 
         .status-approved {
@@ -283,7 +322,7 @@
 
         /* Nouveaux styles pour les notifications et l'animation de mise à jour */
         .highlight-updated {
-            background-color: rgba(40, 167, 69, 0.2) !important;
+            background-color: rgba(67, 160, 71, 0.2) !important;
             transition: background-color 2s;
         }
 
@@ -295,7 +334,7 @@
             border-radius: 5px;
             z-index: 1000;
             opacity: 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
 
         .success-notification {
@@ -315,15 +354,15 @@
         }
 
         .alert-info {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background-color: rgba(67, 160, 71, 0.2);
+            color: var(--success);
+            border: 1px solid var(--success);
         }
 
         .alert-danger {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background-color: rgba(229, 57, 53, 0.2);
+            color: var(--danger);
+            border: 1px solid var(--danger);
         }
 
         @media (max-width: 1200px) {
@@ -377,11 +416,24 @@
 <body>
     <div class="container">
       
+        <!-- Display message if available -->
+        <% 
+            String statusMessage = (String) session.getAttribute("statusMessage");
+            if (statusMessage != null) {
+                String alertClass = statusMessage.contains("Erreur") ? "alert-danger" : "alert-info";
+        %>
+        <div class="alert <%= alertClass %> animate-in">
+            <%= statusMessage %>
+        </div>
+        <%
+                session.removeAttribute("statusMessage"); // Clear the message
+            }
+        %>
 
         <div class="header animate-in">
             <h1><i class="fas fa-user-shield"></i> Tableau de bord administrateur</h1>
             <div class="search-wrapper">
-                <input type="text" class="search-bar" placeholder="Rechercher un employe...">
+                <input type="text" class="search-bar" placeholder="Rechercher un employé...">
                 <i class="fas fa-search search-icon"></i>
             </div>
             
@@ -397,7 +449,7 @@
             <div class="stats">
                 <div class="stat-card animate-in">
                     <i class="fas fa-users stat-icon"></i>
-                    <h3>Total employes</h3>
+                    <h3>Total employés</h3>
                     <div class="stat-number"><%= totalemployes %></div>
                     <div class="stat-change">+12% ce mois</div>
                 </div>
@@ -405,8 +457,21 @@
             </div>
 
             <div class="chart-container animate-in">
-                <h2>Évolution des Employes inscrit</h2>
-                <canvas id="registrationChart"></canvas>
+                <h2>Création des employés et des entreprises</h2>
+               <div>
+                <td>
+                            <a href="creerEmp.jsp" class="btn btn-primary">
+                                <i class="fas fa-user"></i> Ajouter un employé
+                            </a>
+                            <a href="creerEntreprise.jsp" class="btn btn-danger delete-btn"">
+                                <i class="fas fa-building"></i> Ajouter une entreprise
+                            </a>
+                            <a href="liste_entreprises.jsp" class="btn btn-danger delete-btn"">
+                                <i ></i> Voir liste des entreprises
+                            </a>
+                        </td>
+               
+               </div>
             </div>
 
             <div class="recent-activity animate-in">
@@ -416,7 +481,7 @@
                         <i class="fas fa-check"></i>
                     </div>
                     <div>
-                        <div>Nouveau employe validé</div>
+                        <div>Nouveau employé validé</div>
                         <small>Il y a 5 minutes</small>
                     </div>
                 </div>
@@ -434,7 +499,7 @@
                         <i class="fas fa-trash"></i>
                     </div>
                     <div>
-                        <div>employeure supprimée</div>
+                        <div>Employé supprimé</div>
                         <small>Il y a 1 heure</small>
                     </div>
                 </div>
@@ -456,26 +521,25 @@
                 <% 
                 // Récupération des employes depuis la session
                 
-                
                 // Affichage des employes
                 if (employes != null && !employes.isEmpty()) {
                     for (Employe employe : employes) {
                 %>
-                    <tr matricule="employe-row-<%= employe.getMatricule() %>">
+                    <tr id="employe-row-<%= employe.getMatricule() %>">
                         <td><%= employe.getMatricule() %></td>
                         <td><%= employe.getNomEmp() %></td>
                         <td><%= employe.getPrenomEmp() %></td>
                         <td><%= employe.getFonctionEmp() %></td>
                         <td><%= employe.getSalaireBase() %></td>
                        
-                     <td>
-    <a href="details.jsp?id=<%= employe.getMatricule() %>" class="btn btn-primary">
-        <i class="fas fa-eye"></i> Détails
-    </a>
-    <button type="button" class="btn btn-danger delete-btn" data-id="<%= employe.getMatricule() %>">
-        <i class="fas fa-trash"></i> Supprimer
-    </button>
-</td>
+                        <td>
+                            <a href="details.jsp?id=<%= employe.getMatricule() %>" class="btn btn-primary">
+                                <i class="fas fa-eye"></i> Détails
+                            </a>
+                            <button type="button" class="btn btn-danger delete-btn" data-id="<%= employe.getMatricule() %>">
+                                <i class="fas fa-trash"></i> Supprimer
+                            </button>
+                        </td>
                     </tr>
                 <% 
                     }
@@ -483,7 +547,7 @@
                 %>
                     <tr>
                         <td colspan="7" style="text-align: center;">
-                            Aucun employe trouvé dans la base de données.
+                            Aucun employé trouvé dans la base de données.
                         </td>
                     </tr>
                 <% } %>
@@ -492,8 +556,7 @@
     </div>
 
     <script>
-        
-
+       
             // Recherche dynamique améliorée
             $('.search-bar').on('keyup', function() {
                 var value = $(this).val().toLowerCase();
@@ -502,35 +565,35 @@
                 });
             });
 
-          
-            
             // Fonction pour la suppression
-          // Fonction pour la suppression
-$('.delete-btn').on('click', function() {
-    var employeId = $(this).data('id');
-    if (confirm('Êtes-vous sûr de vouloir supprimer ce employe ? Cette action est irréversible.')) {
-        $.ajax({
-            type: "POST",
-            url: "delete.jsp",
-            data: { idemploye: employeId },
-            success: function(response) {
-                // Supprimer la ligne du tableau
-                $('#employe-row-' + employeId).fadeOut(500, function() {
-                    $(this).remove();
-                });
-                
-                // Afficher une notification de succès
-                showNotification("employe supprimé avec succès", "success");
-                
-                // Mettre à jour les statistiques (vous devrez rafraîchir la page ou mettre à jour via JS)
-            },
-            error: function() {
-                // Afficher une notification d'erreur
-                showNotification("Erreur lors de la suppression du employe", "error");
-            }
-        });
-    }
-});
+            $('.delete-btn').on('click', function() {
+                var employeId = $(this).data('id');
+                if (confirm('Êtes-vous sûr de vouloir supprimer cet employé ? Cette action est irréversible.')) {
+                    $.ajax({
+                        type: "POST",
+                        url: "delete.jsp",
+                        data: { id: employeId, entityType: "employe" },
+                        success: function(response) {
+                            // Supprimer la ligne du tableau
+                            $('#employe-row-' + employeId).fadeOut(500, function() {
+                                $(this).remove();
+                            });
+                            
+                            // Afficher une notification de succès
+                            showNotification("Employé supprimé avec succès", "success");
+                            
+                            // Mettre à jour les statistiques
+                            var currentTotal = parseInt($('.stat-number').text());
+                            $('.stat-number').text(currentTotal - 1);
+                        },
+                        error: function(xhr, status, error) {
+                            // Afficher une notification d'erreur
+                            showNotification("Erreur lors de la suppression: " + error, "error");
+                            console.error("Erreur AJAX:", xhr.responseText);
+                        }
+                    });
+                }
+            });
             
             // Fonction pour afficher une notification
             function showNotification(message, type) {

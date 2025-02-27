@@ -25,61 +25,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire d'Inscription</title>
     <style>
-     /* Styles pour la navbar */
-        .navbar {
-            background-color: var(--darkblue);
-            color: white;
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        .navbar-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .navbar-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: white;
-            text-decoration: none;
-        }
-
-        .navbar-links {
-            display: flex;
-        }
-
-        .navbar-links a {
-            color: white;
-            text-decoration: none;
-            margin-left: 1.5rem;
-            padding: 0.5rem 0;
-            position: relative;
-        }
-
-        .navbar-links a:hover {
-            color: #bbdefb;
-        }
-
-        .navbar-links a:hover::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 2px;
-            background-color: #bbdefb;
-            bottom: 0;
-            left: 0;
-        }
-
-        .navbar-toggle {
-            display: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
-    
     
         /* Styles précédents conservés */
         :root {
@@ -245,16 +190,6 @@
     </style>
 </head>
 <body>
- <nav class="navbar">
-        <div class="navbar-container">
-            <a href="#" class="navbar-logo">Gesstion des Employés</a>
-            <div class="navbar-toggle" id="navbar-toggle">☰</div>
-            <div class="navbar-links" id="navbar-links">
-                <a href="formulaire.jsp">Inscription</a>
-                <a href="login.jsp">Connectez-vous</a>
-            </div>
-        </div>
-    </nav>
 
     <div class="container">
         <h1>Formulaire d'Inscription</h1>
@@ -266,81 +201,37 @@
             </div>
         <% } %>
 
-        <form id="inscriptionForm" method="post" action="verification.jsp" onsubmit="return valifonctionEmpForm()">
+        <form id="inscriptionForm" method="post" action="checkEntreprise.jsp" onsubmit="return valifonctionEmpForm()">
             <div class="row">
                 <div class="col">
                     <div class="form-group">
-                        <label for="nomEmp">Nom</label>
-                        <input type="text" id="nomEmp" name="nomEmp" required>
+                        <label for="nomEntrep">Nom Entreprise</label>
+                        <input type="text" id="nomEntrep" name="nomEntrep" required>
                         <span class="error" id="nomError">Le nom est requis</span>
                     </div>
                 </div>
                 <div class="col">
                     <div class="form-group">
-                        <label for="prenomEmp">Prénom</label>
-                        <input type="text" id="prenomEmp" name="prenomEmp" required>
-                        <span class="error" id="prenomError">Le prénom est requis</span>
+                        <label for="adresseEntrep">Adresse de l'entreprise</label>
+                        <input type="text" id="adresseEntrep" name="adresseEntrep" required>
+                        <span class="error" id="adresseError">Le prénom est requis</span>
                     </div>
                 </div>
             </div>
             
             <div class="form-group">
-                <label for="fonctionEmp">fonction</label>
-                <input type="fonctionEmp" id="fonctionEmp" name="fonctionEmp" required>
-                <span class="error" id="fonctionEmpError">fonctionEmp invalide</span>
+                <label for="chiffreAffaire">chiffre Affaire</label>
+                <input type="chiffreAffaire" id="chiffreAffaire" name="chiffreAffaire" required>
+                <span class="error" id="chiffreAffaireError">fonctionEmp invalide</span>
             </div>
 
             <div class="form-group">
-                <label for="serviceEmp">Service</label>
-                <input type="serviceEmp" id="serviceEmp" name="serviceEmp" required>
-                <span class="error" id="serviceEmpError">serviceEmp invalide</span>
-            </div>
-            
-            
-            <div class="form-group">
-                <label for="sexeEmp">Sexe</label>
-                <select id="sexeEmp" name="sexeEmp" required>
-                    <option value="">Sélectionnez</option>
-                    <option value="M">Masculin</option>
-                    <option value="F">Féminin</option>
-                </select>
-                <span class="error" id="sexeEmpError">Veuillez sélectionner un sexeEmp</span>
+                <label for="dateCreation">Date Creation</label>
+                <input type="date" id="dateCreation" name="dateCreation" required>
+                
             </div>
 
-            <div class="form-group">
-                <label for="dateEmbauche">Date Embauche</label>
-                <input type="date" id="dateEmbauche" name="dateEmbauche" required>
-                <span class="error" id="dateEmbaucheError">Numéro de téléphone invalide</span>
-            </div>
-            
-            <div class="form-group">
-                <label for="salaireBase">Salaire Base</label>
-                <input type="text" id="salaireBase" name="salaireBase" required>
-                <span class="error" id="salaireBaseError">La nationalité est requise</span>
-            </div>
-			
-		<div class="form-group">
-    <label for="entrepriseId">Entreprise :</label>
-    <select id="entrepriseId" name="entrepriseId" required>
-        <option value="">Sélectionnez une entreprise</option>
-        <%
-            // Ne déclarez pas à nouveau "entreprises"
-            if (entreprises != null) {
-                for (Entreprise entreprise : entreprises) {
-        %>
-                    <option value="<%= entreprise.getId() %>"><%= entreprise.getNomEntrep() %></option>
-        <%
-                }
-            }
-        %>
-    </select>
-    <span class="error" id="entrepriseError">Veuillez sélectionner une entreprise</span>
-</div>
-
-			
-            
-
-            <button type="submit">S'inscrire</button>
+            <button type="submit">Ajouter Entreprise</button>
         </form>
     </div>
     
@@ -358,52 +249,31 @@
 
         // Valider nom
         if (!form.nomEmp.value.trim()) {
-            document.getElementById('nomError').style.display = 'block';
+            document.getElementById('nomEntrepError').style.display = 'block';
             isValid = false;
         }
 
-        // Valider prénom
-        if (!form.prenomEmp.value.trim()) {
-            document.getElementById('prenomError').style.display = 'block';
-            isValid = false;
-        }
+      
 
         // Valider fonction
-        if (!form.fonctionEmp.value.trim()) {
-            document.getElementById('fonctionEmpError').style.display = 'block';
+        if (!form.adresseEntrep.value.trim()) {
+            document.getElementById('adresseEntrepError').style.display = 'block';
             isValid = false;
         }
 
         // Valider service
-        if (!form.serviceEmp.value.trim()) {
-            document.getElementById('serviceEmpError').style.display = 'block';
-            isValid = false;
-        }
-
-        // Valider sexe
-        if (!form.sexeEmp.value) {
-            document.getElementById('sexeEmpError').style.display = 'block';
+        if (!form.chiffreAffaire.value.trim()) {
+            document.getElementById('chiffreAffaireError').style.display = 'block';
             isValid = false;
         }
 
         // Valider date
-        if (!form.dateEmbauche.value) {
-            document.getElementById('dateEmbaucheError').style.display = 'block';
+        if (!form.dateCreation.value) {
+            document.getElementById('dateCreationError').style.display = 'block';
             isValid = false;
         }
 
-        // Valider salaire
-        if (!form.salaireBase.value) {
-            document.getElementById('salaireBaseError').style.display = 'block';
-            isValid = false;
-        }
-
-        // Valider entreprise
-        if (!form.entrepriseId.value) {
-            document.getElementById('entrepriseError').style.display = 'block';
-            isValid = false;
-        }
-
+        
         return isValid;
     }    </script>
 </body>
